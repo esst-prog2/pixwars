@@ -28,3 +28,4 @@ One line per decision: the date, what was decided, and who decided it.
 - 2026-09-27 — The frame/tick accumulator counts integer nanoseconds, not float seconds: 1/20 s is not binary-exact and `0.5 // 0.05` is 9, which silently dropped a tick every half second. (agent)
 - 2026-09-27 — Shared test helpers live in `sim_helpers.py` and `client_helpers.py` rather than in the two `conftest.py` files, which collide on the module name when both suites are collected together. (agent)
 - 2026-09-27 — MVP verified: 111 tests pass headlessly, and the real window runs at 60 fps over a 20 Hz match. (agent)
+- 2026-09-27 — Synced the seven delta specs into `openspec/specs/` without archiving, so the repository holds both the spec and the change request it came from. The change stays active; archiving is a later step. (agent)
