@@ -3,6 +3,30 @@
 A small side-view multiplayer game: two teams on separate platforms, each
 defending a bed. Break the other team's bed and they stop respawning.
 
+## 0. Running it
+
+```sh
+uv sync
+uv run python main.py          # one human against one bot, in one window
+uv run pytest                  # the rules, headless: no window, no network
+```
+
+| key | |
+|---|---|
+| `A` / `D`, or the arrows | move |
+| `SPACE` / `W` | jump |
+| `J` | attack |
+| `K` | place a block |
+| `L` | break |
+| `1`-`4` | buy, while standing in your shop zone; otherwise select a slot |
+| `ESC` | quit |
+
+What exists today is the local game: the full loop -- iron, shop, bridging,
+combat, beds, a winner -- in one process, with a bot opponent and no sockets in
+it. The networking described below is the next change request, not yet built.
+See `openspec/changes/pixwars-mvp/` for the change request it was built from and
+`PLANNING_LOG.md` for the decisions along the way.
+
 ## 1. The demo
 
 I run `python main.py` and click **Host**. I type the name `neobytes`, and the lobby

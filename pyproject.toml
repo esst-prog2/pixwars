@@ -1,0 +1,17 @@
+[tool.uv.workspace]
+members = ["packages/*"]
+exclude = ["packages/server"]
+
+[dependency-groups]
+dev = [
+    "pixwars-sim",
+    "pixwars-client",
+    "pytest>=8.0",
+]
+
+[tool.uv.sources]
+pixwars-sim = { workspace = true }
+pixwars-client = { workspace = true }
+
+[tool.pytest.ini_options]
+testpaths = ["packages/sim/tests", "packages/client/tests"]
