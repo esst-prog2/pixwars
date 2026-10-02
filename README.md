@@ -112,6 +112,18 @@ no second machine.
   The checkpoint is week six: if the local 2v2 game is not finished and the
   simulation is not cleanly separated by then, the network layer does not get
   started, and the term's deliverable is the local game with bot opponents.
+* **"A port, not a foundation" is now measured rather than assumed.** A spike
+  (`spike/net/`, 2 October) sent a live `World` snapshot at 20 Hz over UDP for
+  60 s and timed the reply, on my home wifi from the laptop to a phone. Raw
+  pickle (5.4 kB, four IP fragments): p50 10.9 ms, p99 61.2 ms, loss 0.00%.
+  zlib-compressed (about 620 bytes, one datagram): p50 9.8 ms, p99 81.4 ms,
+  loss 0.00%. The typical round trip is a fifth of a tick and nothing was lost,
+  so the port goes ahead. The tail is over one 50 ms tick at both sizes, so two
+  things are fixed before any network code exists: the client never waits for a
+  snapshot -- one that is a tick or two late shows as a stutter, not a stall --
+  and snapshots are sent compressed, so that one lost fragment cannot cost a
+  whole snapshot. Still open: the same run on the room's wifi between two
+  laptops.
 * **It solves no one's problem but mine.** This is a game I would open next
   semester rather than a tool someone is waiting for, which I take to be within
   "choose something you want to use" but is worth naming rather than dressing up.
