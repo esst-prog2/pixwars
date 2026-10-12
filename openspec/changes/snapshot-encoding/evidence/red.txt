@@ -1,0 +1,80 @@
+============================= test session starts ==============================
+platform linux -- Python 3.14.8, pytest-9.1.1, pluggy-1.6.0
+rootdir: /home/neobytes/Documents/elte/advanced_prog/pixwars
+configfile: pyproject.toml
+testpaths: packages/sim/tests, packages/client/tests
+collected 118 items
+
+packages/sim/tests/test_building.py ............                         [ 10%]
+packages/sim/tests/test_buttons.py ...                                   [ 12%]
+packages/sim/tests/test_combat.py ...........                            [ 22%]
+packages/sim/tests/test_constants.py ..                                  [ 23%]
+packages/sim/tests/test_economy.py ............                          [ 33%]
+packages/sim/tests/test_map.py ......                                    [ 38%]
+packages/sim/tests/test_match.py .............                           [ 50%]
+packages/sim/tests/test_physics.py ........                              [ 56%]
+packages/sim/tests/test_snapshot.py F.F                                  [ 59%]
+packages/sim/tests/test_step_seam.py .........                           [ 66%]
+packages/sim/tests/test_world.py .....                                   [ 71%]
+packages/client/tests/test_bot.py ........                               [ 77%]
+packages/client/tests/test_demo.py ...                                   [ 80%]
+packages/client/tests/test_game.py .........                             [ 88%]
+packages/client/tests/test_input.py ......                               [ 93%]
+packages/client/tests/test_render.py .......                             [ 99%]
+packages/client/tests/test_snapshot_size.py F                            [100%]
+
+=================================== FAILURES ===================================
+________________________ test_a_fresh_match_round_trips ________________________
+
+world = World(tick=0, tiles=bytearray(b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x...s=((59, 26), (60, 26)), spawn=(14336, 6400), generator=(57, 26), shop_zone=(52, 25, 54, 26))}, over=False, winner=None)
+
+    def test_a_fresh_match_round_trips(world):
+>       assert decode(encode(world)) == world
+               ^^^^^^^^^^^^^^^^^^^^^
+
+packages/sim/tests/test_snapshot.py:9: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+data = b'\x80\x05\x95\xdc\x14\x00\x00\x00\x00\x00\x00\x8c\x11pixwars_sim.world\x94\x8c\x05World\x94\x93\x94)\x81\x94N}\x94(\x...8M\x00\x19\x86\x94h=K9K\x1a\x86\x94h?(K4K\x19K6K\x1at\x94u\x86\x94bu\x8c\x04over\x94\x89\x8c\x06winner\x94Nu\x86\x94b.'
+
+    def decode(data: bytes) -> World:
+        """The world an `encode`d snapshot was taken from."""
+>       return pickle.loads(zlib.decompress(data))
+                            ^^^^^^^^^^^^^^^^^^^^^
+E       zlib.error: Error -3 while decompressing data: incorrect header check
+
+packages/sim/src/pixwars_sim/snapshot.py:22: error
+____________ test_a_match_in_progress_round_trips_and_stays_in_step ____________
+
+    def test_a_match_in_progress_round_trips_and_stays_in_step():
+        world = new_match()
+        for _ in range(100):                 # long enough to walk, jump and earn iron
+            step(world, RIGHT)
+>       twin = decode(encode(world))
+               ^^^^^^^^^^^^^^^^^^^^^
+
+packages/sim/tests/test_snapshot.py:22: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+data = b'\x80\x05\x95\xde\x14\x00\x00\x00\x00\x00\x00\x8c\x11pixwars_sim.world\x94\x8c\x05World\x94\x93\x94)\x81\x94N}\x94(\x...8M\x00\x19\x86\x94h=K9K\x1a\x86\x94h?(K4K\x19K6K\x1at\x94u\x86\x94bu\x8c\x04over\x94\x89\x8c\x06winner\x94Nu\x86\x94b.'
+
+    def decode(data: bytes) -> World:
+        """The world an `encode`d snapshot was taken from."""
+>       return pickle.loads(zlib.decompress(data))
+                            ^^^^^^^^^^^^^^^^^^^^^
+E       zlib.error: Error -3 while decompressing data: incorrect header check
+
+packages/sim/src/pixwars_sim/snapshot.py:22: error
+_______ test_every_snapshot_of_the_spike_run_fits_the_measured_datagram ________
+
+    def test_every_snapshot_of_the_spike_run_fits_the_measured_datagram():
+        largest = max(SPIKE_HEADER + len(encode(world)) for world in _spike_run())
+>       assert largest <= SPIKE_MAX_DATAGRAM
+E       assert 5376 <= 647
+
+packages/client/tests/test_snapshot_size.py:31: AssertionError
+=========================== short test summary info ============================
+FAILED packages/sim/tests/test_snapshot.py::test_a_fresh_match_round_trips - ...
+FAILED packages/sim/tests/test_snapshot.py::test_a_match_in_progress_round_trips_and_stays_in_step
+FAILED packages/client/tests/test_snapshot_size.py::test_every_snapshot_of_the_spike_run_fits_the_measured_datagram
+======================== 3 failed, 115 passed in 3.11s =========================

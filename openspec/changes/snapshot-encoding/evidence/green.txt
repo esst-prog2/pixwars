@@ -1,0 +1,26 @@
+============================= test session starts ==============================
+platform linux -- Python 3.14.8, pytest-9.1.1, pluggy-1.6.0
+rootdir: /home/neobytes/Documents/elte/advanced_prog/pixwars
+configfile: pyproject.toml
+testpaths: packages/sim/tests, packages/client/tests
+collected 118 items
+
+packages/sim/tests/test_building.py ............                         [ 10%]
+packages/sim/tests/test_buttons.py ...                                   [ 12%]
+packages/sim/tests/test_combat.py ...........                            [ 22%]
+packages/sim/tests/test_constants.py ..                                  [ 23%]
+packages/sim/tests/test_economy.py ............                          [ 33%]
+packages/sim/tests/test_map.py ......                                    [ 38%]
+packages/sim/tests/test_match.py .............                           [ 50%]
+packages/sim/tests/test_physics.py ........                              [ 56%]
+packages/sim/tests/test_snapshot.py ...                                  [ 59%]
+packages/sim/tests/test_step_seam.py .........                           [ 66%]
+packages/sim/tests/test_world.py .....                                   [ 71%]
+packages/client/tests/test_bot.py ........                               [ 77%]
+packages/client/tests/test_demo.py ...                                   [ 80%]
+packages/client/tests/test_game.py .........                             [ 88%]
+packages/client/tests/test_input.py ......                               [ 93%]
+packages/client/tests/test_render.py .......                             [ 99%]
+packages/client/tests/test_snapshot_size.py .                            [100%]
+
+============================= 118 passed in 3.08s ==============================
