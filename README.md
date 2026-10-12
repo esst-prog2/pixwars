@@ -122,7 +122,9 @@ no second machine.
   things are fixed before any network code exists: the client never waits for a
   snapshot -- one that is a tick or two late shows as a stutter, not a stall --
   and snapshots are sent compressed, so that one lost fragment cannot cost a
-  whole snapshot. Still open: the same run on the room's wifi between two
+  whole snapshot. The second of these is now held by a test: over the spike's
+  own run no snapshot from `pixwars_sim.snapshot` may exceed the 647 bytes the
+  phone logged. Still open: the same run on the room's wifi between two
   laptops.
 * **It solves no one's problem but mine.** This is a game I would open next
   semester rather than a tool someone is waiting for, which I take to be within

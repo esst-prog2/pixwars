@@ -5,6 +5,7 @@ so a whole match can be played out in a test with no window open.
 """
 
 from .buttons import NO_BUTTONS, Buttons
+from .snapshot import decode, encode
 from .step import step
 from .world import Player, Team, TeamState, World, new_match
 
@@ -15,6 +16,8 @@ __all__ = [
     "Team",
     "TeamState",
     "World",
+    "decode",
+    "encode",
     "new_match",
     "step",
 ]
